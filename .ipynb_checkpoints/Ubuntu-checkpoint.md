@@ -1,5 +1,5 @@
 # Ubuntu 16.04使用日常
-> 记录使用`Ubuntu`过程中遇到的问题，总结一些常用工具，归纳一些小技巧。
+> 记录使用`Ubuntu`过程中遇到的问题，总结一些常用工具，归纳一些小技巧。本文永久更新地址：[Ubuntu.md](https://github.com/ds-ebooks/test/blob/master/Ubuntu.md)
 
 ## 1、redshift色温调节工具
 安装
@@ -173,10 +173,13 @@ python -m http.server #python3
 ## 8、ECS与本地主机互传文件
 通过`ssh`协议实现：
 
+* 传输文件
+
 ```bash
 scp ~/cert/* root@47.107.129.219:/usr/local/nginx/cert
 scp root@47.107.129.219:/usr/local/nginx/cert ~/cert/*
 ```
+* 传输文件夹的话就直接加个`r`参数。
 
 ## 9、小书匠和Evernote
 小书匠基础模板:
@@ -335,10 +338,10 @@ sudo ln -s /usr/share/applications/plank.desktop /etc/xdg/autostart/
 ## 22、Notepad++配置
 [查看博文](https://www.jianshu.com/p/3088175e5f78)
 
-## Windows10 Python配置
+## 23、Windows10 Python配置
 [查看博文](https://blog.csdn.net/qiang12qiang12/article/details/53239866)
 
-## 23、MAC OS 主题
+## 24、MAC OS 主题
 ```bash
 sudo apt-get install unity-tweak-tool 
 sudo add-apt-repository ppa:noobslab/macbuntu
@@ -368,7 +371,7 @@ sudo add-apt-repository ppa:noobslab/themes
 sudo apt-get update
 sudo apt-get install macbuntu-os-bscreen-lts-v7
 ```
-## 24、垃圾清理
+## 25、垃圾清理
 ```bash
 sudo apt-get autoclean 清理旧版本的软件缓存
 sudo apt-get clean 清理所有软件缓存
@@ -377,7 +380,7 @@ sudo apt-get install gtkorphan -y清理Linux下孤立的包
 sudo apt-get remove tracker
 ```
 
-## 25、暴力关机导致蓝屏问题
+## 26、暴力关机导致蓝屏问题
 ```bash
 sudo dpkg --configure -a
 sudo apt-get install xserver-xorg-lts-utopic 
@@ -385,7 +388,7 @@ sudo dpkg-reconfigure xserver-xorg-lts-utopic
 reboot
 ```
 
-## 26、mentohust联网
+## 27、mentohust联网
 下载地址：http://c7.gg/aCFu4
 
 ```bash
@@ -394,7 +397,7 @@ sudo mentohust -k
 sudo mentohust -uusername -p123456 -a1 -d2 -b2 -v4.10 -w
 ```
 
-## 27、彻底卸载Firefox
+## 28、彻底卸载Firefox
 ```bash
 dpkg --get-selections |grep firefox
 sudo apt-get purge firefox  
@@ -402,9 +405,111 @@ sudo apt-get purge firefox-locale-en
 sudo apt-get purge firefox-locale-zh-hans
 sudo apt-get purge unity-scope-firefoxbookmarks
 ```
-## 28、安装chromium
+## 29、安装chromium
 ```bash
 sudo add-apt-repository ppa:a-v-shkop/chromium
 sudo apt-get update
 sudo apt-get install chromium-browser
+```
+
+## 30、终端图片显示工具
+```bash
+sudo apt-get install aview
+```
+* 用 ASCII 模式在终端查看:
+
+```bash
+asciiview elephant.jpg -driver curses 
+```
+
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/20181104171628.png)
+
+## 31、经典菜单指示器
+[ClassicMenu Indicator](http://www.florian-diesch.de/software/classicmenu-indicator/#download)
+
+## 32、文件编码转换
+安装`enca、iconv`:
+```bash
+sudo apt-get enca iconv
+```
+```
+#enca查看文件编码
+enca filename
+#iconv将一个GBK编码的文件转换成UTF-8编码
+enconv -L zh_CN -x UTF-8 filename
+```
+
+## 33、字符串logo工具
+1. 安装：
+```bash
+sudo apt-get install figlet
+```
+2. 用法：
+```bash
+figlet JupyterLab
+```
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/dwdwdw.gif)
+
+## 34、百度网盘相关
+* [Baidu Exporter](https://github.com/acgotaku/BaiduExporter/blob/master/BaiduExporter.crx)： 导出aria2c下载链接，之后就可以直接在终端执行命令下载。
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/20181104181332.png)
+* [baidu-dl](https://chrome.google.com/webstore/detail/baidu-dl/lflnkcmjnhfedgibjackiibmcdnnoadb)，同上，不过最近好像用不了了。
+
+## 35、类似`QQ`的截图工具
+```
+wget http://packages.linuxdeepin.com/deepin/pool/main/d/deepin-scrot/deepin-scrot_2.0-0deepin_all.deb
+sudo dpkg -i deepin-scrot_2.0-0deepin_all.deb
+# 修复依赖问题
+sudo apt install -f
+rm deepin-scrot_2.0-0deepin_all.deb
+```
+然后去`系统设置-键盘-快捷键-自定义快捷键`，之后就可以体验`QQ`那样的截图方式了。
+
+当然`shutter`也很优秀，不过我更喜欢`deepin-scrot`
+```bash
+sudo apt-get install shutter
+```
+
+## 36、`dot`画图
+* 安装：
+
+```bash
+sudo apt install graphviz
+```
+* 简单用法：创建一个文件`vim demo.dot`并编写：
+
+```dot
+graph demo{
+	1 -- 2
+	2 -- 3
+	3 -- 4
+	1 -- 4
+}
+```
+* 生成`png`文件：
+
+```bash
+dot demo.dot -Tpng -o demo.png
+```
+* 效果
+
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/20181104185544.png)
+
+## 37、`htop`进程管理工具
+可以查看后台进程`PID`，方便`kill`进程.
+```bash
+sudo apt install htop
+```
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/qqqqq.gif)
+
+## 38、`fuck`终端工具
+*[thefuck](https://github.com/nvbn/thefuck)
+
+```bash
+sudo pip3 install thefuck
+```
+
+## 39、查看电脑完整配置
+```bash
+lshw
 ```
