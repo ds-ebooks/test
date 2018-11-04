@@ -503,7 +503,7 @@ sudo apt install htop
 ![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/qqqqq.gif)
 
 ## 38、`fuck`终端工具
-*[thefuck](https://github.com/nvbn/thefuck)
+* [thefuck](https://github.com/nvbn/thefuck)
 
 ```bash
 sudo pip3 install thefuck
@@ -513,3 +513,32 @@ sudo pip3 install thefuck
 ```bash
 lshw
 ```
+## 40、标题栏实时显示上下行网速
+下载安装运行`indicator-sysmonito`：
+```
+sudo apt-get install python3-psutil curl git gir1.2-appindicator3-0.1
+git clone https://github.com/fossfreedom/indicator-sysmonitor.git
+cd indicator-sysmonitor
+sudo make install
+nohup indicator-sysmonitor &
+```
+
+## 41、万能解压工具`unar`
+> 通杀` 7z zip tar rar gz `等等
+
+* 安装
+
+```bash
+sudo apt-get install unar
+```
+* 简单使用：
+    * `lsar test.zip` : 列出压缩包内容
+    * `unar test.zip` : 解压压缩包
+    * `unar test.zip -o /home/dir/` : 指定解压结果保存的位置
+    * `unar -e GBK test.zip` : 指定编码
+    * `unar -p 123456 test.zip` : 指定解压密码
+    
+* 使用过程中出现中文文件乱码，先`lsar -e GB18030 test.zip`，看能不能列出文件名，再`unar -e GB18030 test.zip`执行解压
+
+## 42、安装`aira2`及开机启动配置
+* [查看博文](https://www.jianshu.com/p/3c1286c8a19d)

@@ -158,5 +158,3 @@ scp -r ecs:/remote_dir /local_dir
 ```bash
 scp  -r /local_dir ecs:/remote_dir
 ```
-
- 
