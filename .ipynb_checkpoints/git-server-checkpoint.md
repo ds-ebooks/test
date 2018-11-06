@@ -9,7 +9,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ```bash
 host ecs
    user root
-   hostname 47.107.129.219
+   hostname pulic-ip
    port 22
    identityfile ~/.ssh/id_rsa
 ```

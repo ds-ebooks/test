@@ -1,5 +1,7 @@
 # 彻底解决Ubuntu 16.04 联网问题
 
+> 持续更新...
+
 ## 1、`mentohust`锐捷认证客户端
 下载地址：http://c7.gg/aCFu4
 
@@ -20,6 +22,12 @@ sudo apt-get install miredo
 sudo gedit /etc/default/ufw
 ```
 将`IPV6=no`改为`IPV6=yes`
+```bash
+sudo gedit /etc/sysctl.d/10-ipv6-privacy.conf
+# 将这两行改为0
+net.ipv6.conf.all.use_tempaddr = 2
+net.ipv6.conf.default.use_tempaddr = 2
+```
 
 2. 测试`ipv6`
 ```bash
@@ -41,6 +49,12 @@ sudo sysctl --system
 sudo su
 curl https://github.com/lennylxx/ipv6-hosts/raw/master/hosts -L >> /etc/hosts
 ```
+
+5. 刷新配置
+```bash
+sudo sysctl --system
+```
+
 ### 2.2 `hosts`地址
 * [ipv4-hosts](https://github.com/googlehosts/hosts)
 * [ipv6-hosts](https://github.com/StevenBlack/hosts)
@@ -134,7 +148,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ```bash
 host ecs
    user root
-   hostname 47.107.129.219
+   hostname 公网ip
    port 22
    identityfile ~/.ssh/id_rsa
 ```
@@ -158,3 +172,54 @@ scp -r ecs:/remote_dir /local_dir
 ```bash
 scp  -r /local_dir ecs:/remote_dir
 ```
+
+## 5、修改`DNS`
+修改`DNS`是为了进一步提高浏览器查询`ip`地址的速度，提高网络流畅度。
+```bash
+sudo gedit /etc/network/interfaces
+# 加上
+dns-nameservers 8.8.8.8
+dns-nameservers 240c::6666
+sudo gedit /etc/resolv.conf
+# 加上
+nameserver 8.8.8.8
+nameserver 240c::6666
+```
+* `8.8.8.8`是谷歌主`DNS`服务器，最受欢迎
+* `240c::6666`是国内首个`ipv6 DNS服务器`
+* 当然你也可以选用其他`dns`服务器
+
+```bash
+sudo /etc/init.d/resolvconf restart
+```
+此时重启`DNS`服务发现又没有了，解决办法是：在`/etc/resolvconf/resolv.conf.d/`目录下创建`tail`文件，写入 
+```bash
+nameserver 8.8.8.8 
+nameserver 240c::6666
+```
+这样在执行`sudo /etc/init.d/resolvconf restart`就`OK`了.
+
+## 6、`SSR`服务器搭建并配置`ipv6`隧道代理
+
+1. 申请`ipv6`的`ip`: https://www.tunnelbroker.net/register.php
+> 注意几个`ip`的区别
+
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/20181106175115.png)
+
+2. 按照网上教程一件脚本配置搞定.
+    
+## 7、搭建`aria2`服务器
+> 我的服务器地址，https://download.creat.kim , 你们可以上去看看，就是按照作者的教程搭的，我搭建的没有提供公共下载服务。
+
+* 项目地址：[yaaw]https://github.com/binux/yaaw
+
+* 开启服务：
+```bash
+nohup aria2c --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all &
+python -m SimpleHTTPServer 端口号 &
+```
+
+## 8、`nginx`多端口不同域名配置
+> 直接在配置文件加个`server`函数搞定
+
+* 我的配置文件：[nginx](https://github.com/ds19991999/useful-file/blob/master/Jupyter/nginx.conf)
