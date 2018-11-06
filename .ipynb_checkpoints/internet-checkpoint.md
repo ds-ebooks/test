@@ -209,6 +209,7 @@ nameserver 240c::6666
 2. 按照网上教程一件脚本配置搞定.
     
 ## 7、搭建`aria2`服务器
+![](https://raw.githubusercontent.com/ds19991999/githubimg/master/picgo/20181106181826.png)
 > 我的服务器地址，https://download.creat.kim , 你们可以上去看看，就是按照作者的教程搭的，我搭建的没有提供公共下载服务。
 
 * 项目地址：[yaaw]https://github.com/binux/yaaw
